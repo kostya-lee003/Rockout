@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DayEntity" representedClassName="DayEntity" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="workoutEndedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="workoutStartedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="exerciseConfigs" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ExerciseConfigEntity" inverseName="day" inverseEntity="ExerciseConfigEntity"/>
+        <relationship name="program" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProgramEntity" inverseName="days" inverseEntity="ProgramEntity"/>
+    </entity>
+    <entity name="ExerciseConfigEntity" representedClassName="ExerciseConfigEntity" syncable="YES">
+        <attribute name="exerciseInfoId" optional="YES" attributeType="String"/>
+        <attribute name="exerciseName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="rests" optional="YES" attributeType="Transformable"/>
+        <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DayEntity" inverseName="exerciseConfigs" inverseEntity="DayEntity"/>
+        <relationship name="exerciseGoal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseGoalEntity" inverseName="exerciseConfig" inverseEntity="ExerciseGoalEntity"/>
+        <relationship name="sets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SetEntity" inverseName="exerciseConfig" inverseEntity="SetEntity"/>
+    </entity>
+    <entity name="ExerciseDataEntity" representedClassName="ExerciseDataEntity" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="ExerciseGoalEntity" representedClassName="ExerciseGoalEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="reps" optional="YES" attributeType="String"/>
+        <attribute name="restTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sets" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="YES" attributeType="String"/>
+        <relationship name="exerciseConfig" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseConfigEntity" inverseName="exerciseGoal" inverseEntity="ExerciseConfigEntity"/>
+    </entity>
+    <entity name="ProgramEntity" representedClassName="ProgramEntity" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="days" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayEntity" inverseName="program" inverseEntity="DayEntity"/>
+    </entity>
+    <entity name="SetEntity" representedClassName="SetEntity" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="exerciseConfig" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseConfigEntity" inverseName="sets" inverseEntity="ExerciseConfigEntity"/>
+    </entity>
+</model>
